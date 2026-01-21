@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ref, onValue, update, get } from 'firebase/database';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Users, Eye, CheckCircle, XCircle, Briefcase } from 'lucide-react';
+import { Users, Eye, CheckCircle, XCircle, Briefcase, ExternalLink } from 'lucide-react';
 import { database } from '@/lib/firebase';
 import { useAuth } from '@/contexts/AuthContext';
 import { Internship, Application, Student, User } from '@/types';
@@ -13,6 +14,7 @@ import { toast } from 'sonner';
 
 const Candidates: React.FC = () => {
   const { currentUser, companyData } = useAuth();
+  const navigate = useNavigate();
   const [internships, setInternships] = useState<Internship[]>([]);
   const [applications, setApplications] = useState<(Application & { student?: Student; user?: User })[]>([]);
   const [selectedInternship, setSelectedInternship] = useState<string | null>(null);
@@ -217,7 +219,6 @@ const Candidates: React.FC = () => {
                             </div>
                           )}
 
-                          {/* Match Reasons */}
                           {app.matchReasons && app.matchReasons.length > 0 && (
                             <div className="text-sm text-muted-foreground">
                               {app.matchReasons.join(' • ')}
@@ -226,27 +227,37 @@ const Candidates: React.FC = () => {
                         </div>
 
                         {/* Actions */}
-                        {app.status === 'Applied' || app.status === 'Under Review' || app.status === 'Evaluated' ? (
-                          <div className="flex gap-2">
-                            <Button
-                              size="sm"
-                              onClick={() => handleStatusChange(app.id, 'Selected', app)}
-                              className="bg-success hover:bg-success/90"
-                            >
-                              <CheckCircle className="w-4 h-4 mr-1" />
-                              Select
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => handleStatusChange(app.id, 'Rejected', app)}
-                              className="text-destructive hover:bg-destructive hover:text-white"
-                            >
-                              <XCircle className="w-4 h-4 mr-1" />
-                              Reject
-                            </Button>
-                          </div>
-                        ) : null}
+                        <div className="flex flex-col gap-2">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => navigate(`/student/${app.studentId}`)}
+                          >
+                            <Eye className="w-4 h-4 mr-1" />
+                            View Profile
+                          </Button>
+                          {(app.status === 'Applied' || app.status === 'Under Review' || app.status === 'Evaluated') && (
+                            <>
+                              <Button
+                                size="sm"
+                                onClick={() => handleStatusChange(app.id, 'Selected', app)}
+                                className="bg-success hover:bg-success/90"
+                              >
+                                <CheckCircle className="w-4 h-4 mr-1" />
+                                Select
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => handleStatusChange(app.id, 'Rejected', app)}
+                                className="text-destructive hover:bg-destructive hover:text-white"
+                              >
+                                <XCircle className="w-4 h-4 mr-1" />
+                                Reject
+                              </Button>
+                            </>
+                          )}
+                        </div>
                       </div>
                     </motion.div>
                   ))}
