@@ -136,7 +136,7 @@ Feel:
 📨 Emails: EmailJS  
 🤖 Chatbot: RAG (PDF-based)  
 ☁️ Hosting: Netlify
-  ### Hosted Link : https://bridgeskill.netlify.app
+  ### Hosted Link : https://visionarymind.netlify.app
 
 ---
 
