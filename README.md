@@ -135,7 +135,8 @@ Feel:
 🔥 Backend: Firebase (Auth + Realtime DB)  
 📨 Emails: EmailJS  
 🤖 Chatbot: RAG (PDF-based)  
-☁️ Hosting: Netlify / Vercel  
+☁️ Hosting: Netlify
+##Hosted Link : https://bridgeskill.netlify
 
 ---
 
