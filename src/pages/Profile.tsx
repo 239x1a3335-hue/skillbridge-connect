@@ -4,10 +4,13 @@ import { Plus, X, Save, User, MapPin, Link as LinkIcon, Upload } from 'lucide-re
 import { useAuth } from '@/contexts/AuthContext';
 import DashboardLayout from '@/components/DashboardLayout';
 import ProgressRing from '@/components/ProgressRing';
+import ProjectsSection from '@/components/ProjectsSection';
+import ResumePortfolioSection from '@/components/ResumePortfolioSection';
 import ChatBot from '@/components/ChatBot';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { toast } from 'sonner';
+import { Project } from '@/types';
 
 const Profile: React.FC = () => {
   const { userData, studentData, updateStudentProfile } = useAuth();
@@ -49,7 +52,9 @@ const Profile: React.FC = () => {
       if (location) completion += 10;
       if (skills.length > 0) completion += Math.min(skills.length * 5, 25);
       if (studentData?.projects?.length) completion += 15;
-      if (studentData?.certifications?.length) completion += 15;
+      if (studentData?.resumeUrl) completion += 5;
+      if (studentData?.portfolioUrl) completion += 5;
+      if (studentData?.certifications?.length) completion += 5;
       
       await updateStudentProfile({
         bio,
@@ -65,6 +70,14 @@ const Profile: React.FC = () => {
     } finally {
       setSaving(false);
     }
+  };
+
+  const handleProjectsUpdate = (projects: Project[]) => {
+    updateStudentProfile({ projects });
+  };
+
+  const handleResumePortfolioUpdate = (data: { resumeUrl?: string; portfolioUrl?: string }) => {
+    updateStudentProfile(data);
   };
 
   return (
@@ -248,6 +261,19 @@ const Profile: React.FC = () => {
                 )}
               </div>
             </motion.div>
+
+            {/* Projects Section */}
+            <ProjectsSection 
+              projects={studentData?.projects || []}
+              onUpdateProjects={handleProjectsUpdate}
+            />
+
+            {/* Resume & Portfolio Section */}
+            <ResumePortfolioSection
+              resumeUrl={studentData?.resumeUrl}
+              portfolioUrl={studentData?.portfolioUrl}
+              onUpdate={handleResumePortfolioUpdate}
+            />
 
             {/* Save Button */}
             <div className="flex justify-end">

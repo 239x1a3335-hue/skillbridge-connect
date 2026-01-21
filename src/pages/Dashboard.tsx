@@ -5,6 +5,7 @@ import { Briefcase, Users, TrendingUp, FileText, PlusCircle, ClipboardCheck } fr
 import { useAuth } from '@/contexts/AuthContext';
 import DashboardLayout from '@/components/DashboardLayout';
 import ProgressRing from '@/components/ProgressRing';
+import RecommendationsSection from '@/components/RecommendationsSection';
 import ChatBot from '@/components/ChatBot';
 import { Link } from 'react-router-dom';
 
@@ -52,6 +53,10 @@ const Dashboard: React.FC = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Recommendations Section */}
+      <RecommendationsSection studentData={studentData} />
+
       <div className="grid md:grid-cols-2 gap-6">
         <Link to="/internships" className="glass-card-hover p-6 flex items-center gap-4">
           <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">

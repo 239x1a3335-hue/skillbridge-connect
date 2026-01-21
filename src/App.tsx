@@ -14,6 +14,7 @@ import Applications from "./pages/Applications";
 import Profile from "./pages/Profile";
 import PostInternship from "./pages/PostInternship";
 import Candidates from "./pages/Candidates";
+import StudentProfile from "./pages/StudentProfile";
 import Evaluations from "./pages/Evaluations";
 import NotFound from "./pages/NotFound";
 
@@ -37,6 +38,7 @@ const App = () => (
             <Route path="/post-internship" element={<ProtectedRoute allowedRoles={['company']}><PostInternship /></ProtectedRoute>} />
             <Route path="/manage-internships" element={<ProtectedRoute allowedRoles={['company']}><Candidates /></ProtectedRoute>} />
             <Route path="/candidates" element={<ProtectedRoute allowedRoles={['company']}><Candidates /></ProtectedRoute>} />
+            <Route path="/student/:studentId" element={<ProtectedRoute allowedRoles={['company', 'evaluator']}><StudentProfile /></ProtectedRoute>} />
             <Route path="/company-profile" element={<ProtectedRoute allowedRoles={['company']}><Dashboard /></ProtectedRoute>} />
             <Route path="/evaluations" element={<ProtectedRoute allowedRoles={['evaluator']}><Evaluations /></ProtectedRoute>} />
             <Route path="/evaluator-profile" element={<ProtectedRoute allowedRoles={['evaluator']}><Dashboard /></ProtectedRoute>} />

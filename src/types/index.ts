@@ -20,6 +20,7 @@ export interface Student {
   college?: string;
   location?: string;
   resumeUrl?: string;
+  portfolioUrl?: string;
   videoIntroUrl?: string;
 }
 
@@ -28,7 +29,8 @@ export interface Project {
   title: string;
   description: string;
   skills: string[];
-  link?: string;
+  githubLink?: string;
+  deployedLink?: string;
 }
 
 export interface Certification {
