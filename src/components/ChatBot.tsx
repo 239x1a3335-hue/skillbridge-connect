@@ -4,20 +4,114 @@ import { MessageCircle, X, Send, Bot, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ChatMessage } from '@/types';
 
+const KNOWLEDGE_BASE = [
+  {
+    keywords: ['platform', 'what is', 'about'],
+    answer:
+      'This platform connects students and companies using skills instead of college names.\nIt focuses on fair, skill-first internship hiring.\nStudents, companies, and evaluators collaborate here.\nThe goal is equal opportunity for all.',
+  },
+  {
+    keywords: ['signup', 'register', 'create account'],
+    answer:
+      'You can register using your email and password.\nDuring signup, you choose a role.\nYour profile is stored securely in Firebase.\nA welcome email is sent automatically.',
+  },
+  {
+    keywords: ['login', 'signin'],
+    answer:
+      'Login using your registered email and password.\nYour session is securely restored.\nYou are redirected to your role-based dashboard.\nAll data loads in real time.',
+  },
+  {
+    keywords: ['student', 'profile'],
+    answer:
+      'Student profiles are skill-focused.\nYou can add skills, projects, and certifications.\nA readiness score shows your preparation level.\nCollege name is hidden by default.',
+  },
+  {
+    keywords: ['skill', 'skills'],
+    answer:
+      'Skills are the main evaluation factor.\nThey are matched against internship requirements.\nMore relevant skills improve match score.\nSkills can be edited anytime.',
+  },
+  {
+    keywords: ['resume', 'cv'],
+    answer:
+      'Upload a clean and concise resume.\nHighlight projects and technical skills.\nAvoid unnecessary personal details.\nParsed data strengthens your profile.',
+  },
+  {
+    keywords: ['internship', 'apply'],
+    answer:
+      'Internships are recommended based on skills.\nYou can apply with one click.\nApplication status updates in real time.\nEmails notify important changes.',
+  },
+  {
+    keywords: ['application', 'status'],
+    answer:
+      'Application statuses include Applied, Selected, and Rejected.\nYou can track them from your dashboard.\nEach update is transparent.\nNotifications are sent automatically.',
+  },
+  {
+    keywords: ['match', 'matching', 'score'],
+    answer:
+      'Match score is calculated using skills and experience.\nEvaluator feedback also contributes.\nScores are shown as percentages.\nEach score is explainable.',
+  },
+  {
+    keywords: ['blind', 'college'],
+    answer:
+      'Blind hiring hides college and location details.\nRecruiters focus only on skills.\nThis removes bias from the process.\nIt ensures fair evaluation.',
+  },
+  {
+    keywords: ['company', 'recruiter'],
+    answer:
+      'Companies can post internships easily.\nThey define required skills and difficulty.\nCandidates are shortlisted using match scores.\nRecruiters see only relevant profiles.',
+  },
+  {
+    keywords: ['evaluator', 'mentor'],
+    answer:
+      'Evaluators review skills and projects anonymously.\nThey provide structured feedback.\nTheir input affects match scores.\nThis improves hiring accuracy.',
+  },
+  {
+    keywords: ['email', 'notification'],
+    answer:
+      'The platform sends real emails.\nWelcome emails are sent after signup.\nSelection or rejection emails follow decisions.\nAll emails are automated.',
+  },
+  {
+    keywords: ['chatbot', 'assistant'],
+    answer:
+      'I am a career guidance chatbot.\nI help with resumes, interviews, and platform usage.\nMy answers come from trained data only.\nIf data is missing, I say so clearly.',
+  },
+  {
+    keywords: ['interview'],
+    answer:
+      'Prepare by understanding the role.\nPractice explaining your projects.\nReview common technical questions.\nConfidence and clarity are key.',
+  },
+  {
+    keywords: ['career', 'roadmap', 'path'],
+    answer:
+      'A career roadmap defines long-term goals.\nIdentify skills needed for your target role.\nWork on projects step by step.\nRegular learning improves outcomes.',
+  },
+  {
+    keywords: ['offline'],
+    answer:
+      'Some features work without internet.\nInternship listings can be viewed offline.\nCached chatbot data remains available.\nChanges sync when online.',
+  },
+  {
+    keywords: ['security', 'safe', 'data'],
+    answer:
+      'User data is protected using Firebase security.\nAuthentication controls access.\nRole-based permissions are enforced.\nYour information is kept secure.',
+  },
+];
+
 const ChatBot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: '1',
       role: 'assistant',
-      content: 'Hello! I\'m your AI Career Assistant. I can help you with resume guidance, interview preparation, career roadmaps, and skill gap analysis. How can I assist you today?',
+      content:
+        'Hello 👋 I am your Career Assistant.\nI can help with internships, skills, resumes, interviews, and career planning.\nAsk me anything to get started.',
       timestamp: new Date().toISOString(),
     },
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSend = async () => {
+  const handleSend = () => {
     if (!input.trim() || isLoading) return;
 
     const userMessage: ChatMessage = {
@@ -31,129 +125,75 @@ const ChatBot: React.FC = () => {
     setInput('');
     setIsLoading(true);
 
-    // Simulate AI response (in production, this would call a RAG API)
     setTimeout(() => {
-      const responses: Record<string, string> = {
-        resume: 'For a strong resume, focus on: 1) Clear formatting with consistent fonts, 2) Quantifiable achievements, 3) Relevant skills matching job descriptions, 4) Action verbs to describe experience. Would you like specific advice for your industry?',
-        interview: 'Great interview preparation tips: 1) Research the company thoroughly, 2) Practice STAR method for behavioral questions, 3) Prepare questions to ask the interviewer, 4) Review common technical questions for your field. What specific interview type are you preparing for?',
-        skills: 'To identify skill gaps, I recommend: 1) Compare your current skills with job postings in your target role, 2) Take skill assessments on platforms like LinkedIn Learning, 3) Seek feedback from mentors, 4) Review industry certifications that could boost your profile.',
-        career: 'Building a career roadmap involves: 1) Define your 5-year goal, 2) Identify required skills and experiences, 3) Set quarterly milestones, 4) Build a network in your target industry. What career path interests you?',
-      };
+      const lower = input.toLowerCase();
 
-      const lowerInput = input.toLowerCase();
-      let response = 'I understand you\'re asking about career guidance. Could you be more specific? I can help with resume tips, interview preparation, skill development, or career planning.';
+      const match = KNOWLEDGE_BASE.find((item) =>
+        item.keywords.some((k) => lower.includes(k))
+      );
 
-      if (lowerInput.includes('resume') || lowerInput.includes('cv')) {
-        response = responses.resume;
-      } else if (lowerInput.includes('interview')) {
-        response = responses.interview;
-      } else if (lowerInput.includes('skill')) {
-        response = responses.skills;
-      } else if (lowerInput.includes('career') || lowerInput.includes('path') || lowerInput.includes('roadmap')) {
-        response = responses.career;
-      }
+      const reply =
+        match?.answer ||
+        'The information is not available in the provided data.\nYou can ask about internships, skills, resumes, interviews, or platform usage.\nI answer only from verified knowledge.';
 
-      const assistantMessage: ChatMessage = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: response,
-        timestamp: new Date().toISOString(),
-      };
-
-      setMessages((prev) => [...prev, assistantMessage]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: (Date.now() + 1).toString(),
+          role: 'assistant',
+          content: reply,
+          timestamp: new Date().toISOString(),
+        },
+      ]);
       setIsLoading(false);
-    }, 1000);
+    }, 700);
   };
 
   return (
     <>
-      {/* Floating Button */}
       <motion.button
-        className="floating-chatbot w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
+        className="floating-chatbot w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center"
         onClick={() => setIsOpen(true)}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
       >
         <MessageCircle className="w-6 h-6" />
       </motion.button>
 
-      {/* Chat Window */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className="fixed bottom-24 right-6 w-96 h-[500px] glass-card flex flex-col z-50 overflow-hidden"
-          >
-            {/* Header */}
-            <div className="bg-primary text-primary-foreground p-4 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Bot className="w-6 h-6" />
-                <div>
-                  <h3 className="font-semibold">Career Assistant</h3>
-                  <p className="text-xs opacity-80">AI-powered guidance</p>
-                </div>
+          <motion.div className="fixed bottom-24 right-6 w-96 h-[500px] glass-card flex flex-col z-50">
+            <div className="bg-primary text-primary-foreground p-4 flex justify-between">
+              <div className="flex items-center gap-2">
+                <Bot className="w-5 h-5" />
+                <span>Career Assistant</span>
               </div>
-              <button onClick={() => setIsOpen(false)} className="hover:opacity-80">
-                <X className="w-5 h-5" />
-              </button>
+              <X onClick={() => setIsOpen(false)} className="cursor-pointer" />
             </div>
 
-            {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              {messages.map((message) => (
-                <motion.div
-                  key={message.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`flex gap-3 ${message.role === 'user' ? 'flex-row-reverse' : ''}`}
+              {messages.map((m) => (
+                <div
+                  key={m.id}
+                  className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                    message.role === 'assistant' ? 'bg-primary text-primary-foreground' : 'bg-accent text-accent-foreground'
-                  }`}>
-                    {message.role === 'assistant' ? <Bot className="w-4 h-4" /> : <User className="w-4 h-4" />}
-                  </div>
-                  <div className={`max-w-[75%] p-3 rounded-2xl ${
-                    message.role === 'assistant' 
-                      ? 'bg-muted text-foreground rounded-tl-none' 
-                      : 'bg-primary text-primary-foreground rounded-tr-none'
-                  }`}>
-                    <p className="text-sm">{message.content}</p>
-                  </div>
-                </motion.div>
-              ))}
-              {isLoading && (
-                <div className="flex gap-3">
-                  <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center">
-                    <Bot className="w-4 h-4" />
-                  </div>
-                  <div className="bg-muted p-3 rounded-2xl rounded-tl-none">
-                    <div className="flex gap-1">
-                      <span className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                      <span className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                      <span className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                    </div>
+                  <div className="max-w-[75%] bg-muted p-3 rounded-lg whitespace-pre-line text-sm">
+                    {m.content}
                   </div>
                 </div>
-              )}
+              ))}
+              {isLoading && <p className="text-sm">Typing…</p>}
             </div>
 
-            {/* Input */}
-            <div className="p-4 border-t border-border">
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-                  placeholder="Ask about careers, skills, interviews..."
-                  className="input-field flex-1"
-                />
-                <Button onClick={handleSend} disabled={isLoading || !input.trim()}>
-                  <Send className="w-4 h-4" />
-                </Button>
-              </div>
+            <div className="p-3 border-t flex gap-2">
+              <input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                className="flex-1 input-field"
+                placeholder="Ask about skills, internships, interviews..."
+              />
+              <Button onClick={handleSend} disabled={isLoading}>
+                <Send className="w-4 h-4" />
+              </Button>
             </div>
           </motion.div>
         )}
