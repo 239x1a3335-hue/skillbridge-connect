@@ -1,73 +1,155 @@
-# Welcome to your Lovable project
+# 🎓 Skill-First Industry Internship Matching Platform  
+### 🌱 Empowering Tier-2 & Tier-3 Students with Skill-Based Opportunities
 
-## Project info
+---
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## 🚀 Overview
+The **Skill-First Industry Internship Matching Platform** is a **production-ready, real-time web application** designed to connect students, companies, and evaluators through **skills instead of college names or geography**.  
+The platform ensures **fair access**, **transparent matching**, and **guided career growth** for students from Tier-2 & Tier-3 institutions.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 🎯 Problem We Solve
+🎓 Students lack access to meaningful internships due to limited exposure and biased hiring  
+🏢 Companies miss skilled talent beyond metro cities  
+⚖️ Hiring decisions often depend on college reputation instead of skills  
 
-**Use Lovable**
+This platform eliminates these gaps by enabling **bias-free, skill-first internship matching**.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🧩 Solution Highlights
+✅ Skill-based eligibility screening  
+✅ Blind hiring by default  
+✅ Explainable internship matching  
+✅ Real-time application tracking  
+✅ Verified recruiters & evaluators  
+✅ PDF-trained, hallucination-free chatbot  
+✅ Offline-first support  
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 👥 User Roles
+### 🧑‍🎓 Student
+• Skill-based profile (skills, projects, certifications)  
+• Resume upload & parsing  
+• Skill readiness score & profile completeness meter  
+• Blind hiring toggle  
+• Internship recommendations (skill-match %)  
+• Application tracker (Applied / Selected / Rejected)  
+• Public shareable skill portfolio  
+• Async video introduction (60–90 seconds)  
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 🏢 Company / Recruiter
+• Post remote & hybrid internships  
+• Define required skills & difficulty  
+• View candidates with explainable match scores  
+• Blind hiring ON/OFF toggle  
+• Shortlisting pipeline  
+• Verified recruiter badge  
 
-Follow these steps:
+### 🧑‍⚖️ Evaluator
+• Anonymous skill evaluation dashboard  
+• Portfolio & project review  
+• Skill scoring & feedback  
+• Approval / rejection authority  
+• Evaluator feedback influences match score  
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 🧠 Recommendation System
+🎯 Matches students, internships, and evaluators using:
+• Skills  
+• Projects  
+• Assessments  
+• Engagement  
+• Evaluator feedback  
 
-# Step 3: Install the necessary dependencies.
-npm i
+📊 Match scores are **percentage-based, transparent, and explainable**.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+---
 
-**Edit a file directly in GitHub**
+## 🤖 AI Career Chatbot (RAG)
+💬 Floating chatbot on all pages  
+📄 Trained only from PDFs in `/knowledge_base`  
+🧠 Uses document chunking & vector search  
+🚫 No hallucinations  
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+If information is unavailable, the chatbot responds:  
+> “The information is not available in the provided data.”
 
-**Use GitHub Codespaces**
+Replacing PDFs automatically retrains the chatbot.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+---
 
-## What technologies are used for this project?
+## 🔐 Authentication & Data
+🔑 Firebase Authentication (Email & Password)  
+📡 Firebase Realtime Database  
+🧭 Role-based dashboards & permissions  
+⚡ Real-time updates across the platform  
 
-This project is built with:
+---
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## ✉️ Email Automation
+📧 EmailJS integration  
+✔ Welcome Email  
+✔ Selection / Rejection Email  
 
-## How can I deploy this project?
+Emails are:
+• Real & automatic  
+• Role-aware  
+• Fully dynamic  
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+---
 
-## Can I connect a custom domain to my Lovable project?
+## 🌐 Offline Support
+📴 View internships offline  
+📂 Cached chatbot knowledge  
+📝 Offline resume edits  
+🔄 Auto-sync when online  
 
-Yes, you can!
+---
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 🎨 UI / UX Philosophy
+🎨 Light theme with soft pastel colors  
+🪟 Glassmorphism cards  
+🔘 Rounded buttons  
+✨ Smooth micro-animations  
+📱 Mobile-first responsive design  
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Feel:  
+🌿 Calm · 🧠 Modern · 🤝 Trustworthy · 🎓 Student-friendly  
+
+---
+
+## 🌍 Deployment
+🌐 Fully browser-based  
+🚀 Publicly hosted  
+⚙️ Netlify / Vercel compatible  
+🧩 No custom backend server  
+
+---
+
+## 🛠️ Tech Stack
+⚛️ Frontend: HTML / CSS / JavaScript / React  
+🔥 Backend: Firebase (Auth + Realtime DB)  
+📨 Emails: EmailJS  
+🤖 Chatbot: RAG (PDF-based)  
+☁️ Hosting: Netlify / Vercel  
+
+---
+
+## 🌟 Impact
+🌱 Expands access to internships  
+⚖️ Reduces urban & institutional bias  
+📈 Improves employability  
+🏢 Helps companies discover untapped talent  
+🎓 Bridges the education–industry gap  
+
+---
+
+## 🏆 Vision
+**Skills should decide opportunities — not college names or locations.**  
+This platform makes **talent visible, accessible, and fairly evaluated**.
+
+---
